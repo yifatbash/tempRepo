@@ -23,7 +23,7 @@ type EventBody struct {
 	Parents              []string              //hashes of the event's parents, self-parent first
 	Creator              []byte                //creator's public key
 	Index                int                   //index in the sequence of events created by Creator
-	BlockSignatures      []BlockSignature      //list of Block signatures signed by the Event's Creator ONLY
+	BlockSignatures      []BlockSignature      //list of Block signatures signed by the Event's Creator ONLY //-- ????????????????
 
 	//These fields are not serialized
 	creatorID            uint32
@@ -32,7 +32,7 @@ type EventBody struct {
 	otherParentIndex     int
 }
 
-// Marshal returns the JSON encoding of an EventBody
+// Marshal returns the JSON encoding of an EventBody //-- convert the eventBody struct to JSON (string in bytes[])
 func (e *EventBody) Marshal() ([]byte, error) {
 	var b bytes.Buffer
 	enc := json.NewEncoder(&b) //will write to b
@@ -42,7 +42,7 @@ func (e *EventBody) Marshal() ([]byte, error) {
 	return b.Bytes(), nil
 }
 
-// Unmarshal converts a JSON encoded EventBody to an EventBody
+// Unmarshal converts a JSON encoded EventBody to an EventBody  //--(saved into e, that got from outside)
 func (e *EventBody) Unmarshal(data []byte) error {
 	b := bytes.NewBuffer(data)
 	dec := json.NewDecoder(b) //will read from b
